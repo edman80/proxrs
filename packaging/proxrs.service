@@ -1,0 +1,17 @@
+[Unit]
+Description=proxrs - minimal TLS-terminating reverse proxy
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/proxrs /etc/proxrs/proxy.toml
+Restart=on-failure
+RestartSec=2
+Environment=RUST_LOG=info
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

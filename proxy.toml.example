@@ -1,0 +1,13 @@
+listen = "0.0.0.0:443"
+
+[[hosts]]
+domain = "etf.sh"
+cert = "/etc/proxrs/certs/etf.sh.pem"
+key = "/etc/proxrs/certs/etf.sh.key"
+backend = "127.0.0.1:8000"
+
+# [[hosts]]
+# domain = "counter.etf.sh"
+# cert = "/etc/proxrs/certs/counter.etf.sh.pem"
+# key = "/etc/proxrs/certs/counter.etf.sh.key"
+# backend = "127.0.0.1:8001"

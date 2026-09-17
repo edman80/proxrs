@@ -1,0 +1,6 @@
+/target
+
+# local config and secrets - never commit real certs/keys
+/proxy.toml
+*.pem
+*.key

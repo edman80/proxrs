@@ -1,0 +1,42 @@
+[package]
+name = "proxrs"
+version = "0.1.0"
+edition = "2024"
+description = "A minimal TLS-terminating reverse proxy"
+license = "GPL-3.0-only"
+repository = "https://github.com/edman80/proxrs"
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "signal"] }
+hyper = { version = "1", features = ["full"] }
+hyper-util = { version = "0.1", features = ["full"] }
+http-body-util = "0.1"
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12"] }
+rustls = { version = "0.23", default-features = false, features = ["std", "tls12", "ring"] }
+rustls-pemfile = "2"
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+anyhow = "1"
+bytes = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[package.metadata.deb]
+maintainer = "Eddie Fiorentine <eddie.fiorentine@gmail.com>"
+copyright = "2026, Eddie Fiorentine"
+license-file = ["LICENSE", "0"]
+extended-description = """\
+A minimal TLS-terminating reverse proxy. It listens for HTTPS connections, \
+picks a certificate and a backend by SNI hostname, and forwards each \
+request to that backend over plain HTTP, streaming the response back. No \
+load balancing, no caching, no path-based routing — one hostname maps to \
+one backend."""
+depends = "$auto"
+section = "net"
+priority = "optional"
+assets = [
+    ["target/release/proxrs", "usr/bin/", "755"],
+    ["proxy.toml.example", "etc/proxrs/proxy.toml.example", "644"],
+    ["packaging/proxrs.service", "lib/systemd/system/proxrs.service", "644"],
+    ["README.md", "usr/share/doc/proxrs/README.md", "644"],
+]
