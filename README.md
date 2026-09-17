@@ -151,9 +151,16 @@ every pull request: `cargo fmt --check`, `cargo clippy -- -D warnings`,
 
 Pushing a tag matching `v*` (e.g. `v0.1.0`) triggers
 `.github/workflows/release.yml`, which builds a `.deb` on `ubuntu-latest`
-and publishes it as a GitHub release:
+and publishes it as a GitHub release.
+
+Tags are cut with [cargo-release](https://github.com/crate-ci/cargo-release)
+(`cargo install cargo-release`), which bumps the version in `Cargo.toml`,
+commits, tags, and pushes in one step. `[package.metadata.release]` in
+`Cargo.toml` sets `publish = false` (this crate isn't published to
+crates.io) and `tag-name = "v{{version}}"` to match the release workflow's
+trigger. It defaults to a dry run — pass `--execute` to actually do it:
 
 ```
-git tag v0.1.0
-git push origin v0.1.0
+cargo release patch --execute   # 0.1.0 -> 0.1.1
+cargo release minor --execute   # 0.1.0 -> 0.2.0
 ```

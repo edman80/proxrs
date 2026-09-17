@@ -40,3 +40,8 @@ assets = [
     ["packaging/proxrs.service", "lib/systemd/system/proxrs.service", "644"],
     ["README.md", "usr/share/doc/proxrs/README.md", "644"],
 ]
+
+[package.metadata.release]
+publish = false
+tag-name = "v{{version}}"
+
